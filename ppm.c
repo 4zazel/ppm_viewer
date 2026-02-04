@@ -64,6 +64,7 @@ void display_data(ppm *image){
   }
 }
 
+//Display each pixel as two █ characters escaped with a 24-bit rgb ansi escape sequence
 void display_image(ppm *image){
   for(int i = 0; i < image->height; i++){
     for(int j = 0; j < image->width; j++){
@@ -76,6 +77,7 @@ void display_image(ppm *image){
 void convert_to_grayscale(ppm *image){
   for(int i = 0; i < image->height; i++){
     for(int j = 0; j < image->width; j++){
+      //Formula for converting rgb to grayscale
       int Y = (image->data[i][j].r * 0.299f) + (image->data[i][j].g * 0.587f) + (image->data[i][j].b * 0.114f);
       image->data[i][j].r = Y;
       image->data[i][j].g = Y;
