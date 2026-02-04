@@ -22,5 +22,7 @@ int read_color_value(FILE **file, ppm *image);
 int read_pixel_data(FILE **file, ppm *image);
 void display_data(ppm *image);
 void display_image(ppm *image);
+void convert_to_grayscale(ppm *image);
+void print_help();
 
 #endif // PPM_H

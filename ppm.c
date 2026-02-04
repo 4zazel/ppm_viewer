@@ -72,3 +72,24 @@ void display_image(ppm *image){
     printf("\n");
   }
 }
+
+void convert_to_grayscale(ppm *image){
+  for(int i = 0; i < image->height; i++){
+    for(int j = 0; j < image->width; j++){
+      int Y = (image->data[i][j].r * 0.299f) + (image->data[i][j].g * 0.587f) + (image->data[i][j].b * 0.114f);
+      image->data[i][j].r = Y;
+      image->data[i][j].g = Y;
+      image->data[i][j].b = Y;
+    }
+  }
+}
+
+void print_help(){
+  printf("PPM Viewer\n");
+  printf("Simple utility to show ppm images in the terminal.");
+  printf("\n");
+  printf("Flags:\n");
+  printf("-h Show this screen.\n");
+  printf("-g Convert image to grayscale.\n");
+  printf("-d Display raw image data\n");
+}
