@@ -17,7 +17,9 @@ If image is in another directory specify the full path instead:
 
 ### Flags
 **-h** Show the help screen.
+
 **-g** Convert image to grayscale.
+
 **-d** Display raw image data.
 
 > [!WARNING]
