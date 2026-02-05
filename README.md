@@ -22,9 +22,13 @@ If image is in another directory specify the full path instead:
 
 **-d** Display raw image data.
 
+**-a** Convert image to ASCII.
+
+**-s [char]** Use a custom symbol.
+
 > [!WARNING]
 > Currently only supports P3 PPM format!
 
 ##To Do:
 - [ ] Implement P2 and P1 PPM formats.
-- [ ] Add effects / color filters as flags.
+- [x] Add effects / color filters as flags.

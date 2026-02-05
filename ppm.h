@@ -6,6 +6,7 @@
 
 typedef struct{
   uint8_t r, g, b;
+  char *symbol;
 }pixel;
 
 typedef struct{
@@ -13,6 +14,7 @@ typedef struct{
   unsigned int width, height;
   uint8_t value;
   pixel **data;
+  char *global_symbol;
 }ppm;
 
 int open_file(FILE **file, char *filepath);
@@ -24,5 +26,7 @@ void display_data(ppm *image);
 void display_image(ppm *image);
 void convert_to_grayscale(ppm *image);
 void print_help();
+void close(FILE **file, ppm *image);
+void convert_to_ascii(ppm *image);
 
 #endif // PPM_H

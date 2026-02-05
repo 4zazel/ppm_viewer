@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "ppm.h"
 
@@ -66,9 +67,13 @@ void display_data(ppm *image){
 
 //Display each pixel as two █ characters escaped with a 24-bit rgb ansi escape sequence
 void display_image(ppm *image){
+  char *sym;
   for(int i = 0; i < image->height; i++){
     for(int j = 0; j < image->width; j++){
-      printf("\x1b[38;2;%d;%d;%dm██", image->data[i][j].r, image->data[i][j].g, image->data[i][j].b);
+      if((sym = image->data[i][j].symbol) == NULL){
+        sym = image->global_symbol;
+      }
+      printf("\x1b[38;2;%d;%d;%dm%s%s", image->data[i][j].r, image->data[i][j].g, image->data[i][j].b, sym, sym);
     }
     printf("\n");
   }
@@ -94,4 +99,29 @@ void print_help(){
   printf("-h Show this screen.\n");
   printf("-g Convert image to grayscale.\n");
   printf("-d Display raw image data\n");
+}
+
+void close(FILE **file, ppm *image){
+  fclose(*file);
+  free(image->data);
+}
+
+void convert_to_ascii(ppm *image){
+  //char map[9] = {'@', '%', '#', '*', '+', '=', '-', ':', '.'};
+
+  for(int i = 0; i<image->height; i++){
+    for(int j = 0; j<image->width; j++){
+      int pixel_intensity = (image->data[i][j].r + image->data[i][j].g + image->data[i][j].b)/3;
+      if(pixel_intensity <= 28) image->data[i][j].symbol = ".";
+      if(pixel_intensity > 28 && pixel_intensity <= 56) image->data[i][j].symbol = ":";
+      if(pixel_intensity > 56 && pixel_intensity <= 84) image->data[i][j].symbol = "-";
+      if(pixel_intensity > 84 && pixel_intensity <= 112) image->data[i][j].symbol = "=";
+      if(pixel_intensity > 112 && pixel_intensity <= 140) image->data[i][j].symbol = "+";
+      if(pixel_intensity > 140 && pixel_intensity <= 168) image->data[i][j].symbol = "*";
+      if(pixel_intensity > 168 && pixel_intensity <= 196) image->data[i][j].symbol = "#";
+      if(pixel_intensity > 196 && pixel_intensity <= 224) image->data[i][j].symbol = "%";
+      if(pixel_intensity > 224 && pixel_intensity <= 252) image->data[i][j].symbol = "@";
+      if(pixel_intensity > 252) image->data[i][j].symbol = "$";
+    }
+  }
 }

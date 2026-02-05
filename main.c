@@ -16,11 +16,17 @@ int main(int argc, char* argv[]){
   if((filepath = argv[1]) == NULL){
     printf("Please enter a valid file path!\n");
     return 1;
+  } else if(!strcmp(argv[1], "-h")){
+    print_help();
+    return 0;
   }
 
   //Open the file
   open_file(&file, filepath);
   if(!file) return 1;
+
+  //Set default display symbol
+  image.global_symbol = "██";
 
   //Read data
   read_type(&file, &image);
@@ -46,10 +52,16 @@ int main(int argc, char* argv[]){
       display_data(&image);
       return 0;
     }
+    if(!strcmp(argv[i], "-s")){
+      image.global_symbol = argv[i+1];
+    }
+    if(!strcmp(argv[i], "-a")) convert_to_ascii(&image);
   }
 
   display_image(&image);
-  //display_data(&image);
+
+  //Close file and free memory
+  close(&file, &image);
 
   return 0;
 }
