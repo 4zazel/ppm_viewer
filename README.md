@@ -29,6 +29,6 @@ If image is in another directory specify the full path instead:
 > [!WARNING]
 > Currently only supports P3 PPM format!
 
-##To Do:
+## To Do:
 - [ ] Implement P2 and P1 PPM formats.
 - [x] Add effects / color filters as flags.
